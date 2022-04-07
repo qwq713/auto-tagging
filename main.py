@@ -2,6 +2,7 @@ import boto3
 
 from module.client import *
 from module.describe import *
+from module.relation import *
 
 from time import time
 from pprint import pprint
@@ -34,16 +35,19 @@ from pprint import pprint
 """
 
 
-elb_client = get_client(auth_dict={"profile": "TEST"}, client_name='elbv2')
+elb_client = get_client(auth_dict={"profile": "LGES_PRD"}, client_name='elbv2')
 begin = time()
 
 load_balancers = all_load_balancers(elb_client=elb_client)
-listners = all_listeners(elb_client,load_balancers)
+listners = all_listeners(elb_client, load_balancers)
 target_groups = all_target_groups(elb_client=elb_client)
 targets = all_target_group_health(elb_client, target_groups)
 
+relations = build_relation_list(load_balancers,listners,target_groups,targets)
+pprint(relations[2])
 # pprint(load_balancers)
 # pprint(listners)
+# pprint(listners.get("arn:aws:elasticloadbalancing:ap-northeast-2:053520951691:loadbalancer/app/ALB-JENKINS-SERVER/d5a88eb01943b7b7")[0])
 # pprint(target_groups)
 # pprint(targets)
 

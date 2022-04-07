@@ -8,8 +8,8 @@
       - Relation : {LoadBalancerName}
       - Example : WEB-APP
     - TARGET_GROUP
-      - Relation : {LoadBalancerName}-{Protocol}-{Listener-port}-{TargetPort}
-      - Example : WEB-APP-HTTP-80-8001
+      - Relation : {LoadBalancerName}
+      - Example : WEB-APP
     - TARGET_INSTANCE
       - Relation : {LoadBalancerName}
       - Example : WEB-APP
