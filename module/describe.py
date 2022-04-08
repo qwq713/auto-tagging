@@ -1,7 +1,4 @@
 from typing import *
-import asyncio
-import functools
-
 
 def all_load_balancers(elb_client):
     result = []
@@ -61,3 +58,46 @@ def all_target_group_health(elb_client, all_target_groups: List[dict]):
         result[arn] = targets
 
     return result
+
+
+def all_ec2_instances(ec2_client):
+    result = []
+    response = ec2_client.describe_instances()
+    next_token = response.get("NextToken",False)
+    reservations = response.get("Reservations",False)
+    if reservations:
+        for reserv in reservations:
+            instances = reserv.get("Instances",False)
+            if instances:
+                for instance in instances:
+                    if instance.get("State").get("Name") in ["terminated","shutting-down","pending"]:
+                        continue
+                    result.append(instance)
+    
+    while next_token:
+        response = ec2_client.describe_instances(NextToken=next_token)
+        next_token = response.get("NextToken",False)
+        reservations = response.get("Reservations",False)
+        if reservations:
+            for reserv in reservations:
+                instances = reserv.get("Instances",False)
+                if instances:
+                    for instance in instances:
+                        if instance.get("State").get("Name") in ["terminated","shutting-down","pending"]:
+                            continue
+                        result.append(instance)
+    return result
+
+def filtered_targets(targets,ec2_instances):
+    fileterd_targets = {}
+    instances_id_set = { inst.get('InstanceId',False)  for inst in ec2_instances}
+    
+    for inst_id,lb_name in targets.items():
+        if inst_id in instances_id_set:
+            fileterd_targets[inst_id] = lb_name    
+        
+    return fileterd_targets
+    
+    
+    
+    

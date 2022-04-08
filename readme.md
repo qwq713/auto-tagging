@@ -5,11 +5,11 @@
   - Lambda 서비스의 cron 배치서비스를 통해 일 1회 수행하여 정합성 유지.
   - ELB & TARGET GROUP
     - ELB
-      - Relation : {LoadBalancerName}
+      - ElbRelation : {LoadBalancerName}
       - Example : WEB-APP
     - TARGET_GROUP
-      - Relation : {LoadBalancerName}
+      - ElbRelation : {LoadBalancerName}
       - Example : WEB-APP
     - TARGET_INSTANCE
-      - Relation : {LoadBalancerName}
+      - ElbRelation : {LoadBalancerName}
       - Example : WEB-APP
