@@ -10,9 +10,11 @@ phases:
   pre_build:
     commands:
       - echo Nothing to do in the pre_build phase...
+      - pwd
   build:
     commands:
       - echo Build started on `date`
+      - pwd
       - ./make_zipfile.sh
   post_build:
     commands:
