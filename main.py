@@ -6,23 +6,26 @@ from time import time
 
 from pprint import pprint
 
-begin = time()
 
-elb_client = get_client(auth_dict={"profile": "TEST"}, client_name='elbv2')
-ec2_client = get_client(auth_dict={"profile": "TEST"}, client_name='ec2')
+def main():
+    begin = time()
 
-load_balancers = all_load_balancers(elb_client)
-listners = all_listeners(elb_client, load_balancers)
-target_groups = all_target_groups(elb_client=elb_client)
-ec2_instances = all_ec2_instances(ec2_client)
-targets = all_target_group_health(elb_client, target_groups)
+    elb_client = get_client(auth_dict={}, client_name='elbv2')
+    ec2_client = get_client(auth_dict={}, client_name='ec2')
 
-relations = build_relation_list(load_balancers,listners,target_groups,targets)
-relations["Targets"] = filtered_targets(relations.get("Targets"),ec2_instances)
+    load_balancers = all_load_balancers(elb_client)
+    listners = all_listeners(elb_client, load_balancers)
+    target_groups = all_target_groups(elb_client=elb_client)
+    ec2_instances = all_ec2_instances(ec2_client)
+    targets = all_target_group_health(elb_client, target_groups)
 
-tagged_list = tag_resources(elb_client, ec2_client, relations)
+    relations = build_relation_list(load_balancers,listners,target_groups,targets)
+    relations["Targets"] = filtered_targets(relations.get("Targets"),ec2_instances)
 
-pprint(tagged_list)
+    tagged_list = tag_resources(elb_client, ec2_client, relations)
 
-end = time()
-print('(sync) 실행 시간: {0:.3f}초'.format(end-begin))
+    pprint(tagged_list)
+
+    end = time()
+    print('(sync) 실행 시간: {0:.3f}초'.format(end-begin))
+
