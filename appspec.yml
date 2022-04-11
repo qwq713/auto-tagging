@@ -1,0 +1,6 @@
+version: 0.0
+Resources:
+  - auto-tagging:
+      Type: AWS::Lambda::Function
+      Properties:
+        Name: "auto-tagging"
