@@ -4,5 +4,6 @@ Resources:
       Type: AWS::Lambda::Function
       Properties:
         Name: "auto-tagging"
-        CurrentVersion: "1"
-        TargetVersion: "2"
+        Alias: "auto-tagging-elb"
+        CurrentVersion: "2"
+        TargetVersion: "1"
