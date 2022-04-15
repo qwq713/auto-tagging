@@ -5,5 +5,5 @@ Resources:
       Properties:
         Name: "auto-tagging"
         Alias: "auto-tagging-elb"
-        CurrentVersion: "2"
-        TargetVersion: "3"
+        CurrentVersion: "1"
+        TargetVersion: "2"
