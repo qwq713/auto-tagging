@@ -20,5 +20,6 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - ./lambda.zip
-    - ./appspec.yml
+    - module
+    - lambda_function.py
+    - main.py
