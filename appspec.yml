@@ -1,0 +1,9 @@
+version: 0.0
+resources:
+  - auto-tagging:
+      type: "AWS::Lambda::Function"
+      properties:
+        name: auto-tagging
+        alias: auto-tagging-elb
+        currentversion: 1
+        targetversion: 2
