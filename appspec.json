@@ -7,8 +7,8 @@
         "Properties": {
           "Name": "auto-tagging",
           "Alias": "auto-tagging-elb",
-          "CurrentVersion": "1",
-          "TargetVersion": "2"
+          "CurrentVersion": "2",
+          "TargetVersion": "4"
         }
       }
     }
